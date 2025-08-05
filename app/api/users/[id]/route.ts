@@ -3,9 +3,12 @@ import { users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { NextRequest } from "next/server";
 
-export async function GET({ params }: { params: { id: string } }) {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
   try {
-    const userId = params?.id;
+    const { id: userId } = await params;
 
     if (!userId) {
       return Response.json({ error: "User ID is required" }, { status: 400 });
@@ -37,10 +40,10 @@ interface UpdateUserProps {
 
 export async function PUT(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const userId = params?.id;
+    const { id: userId } = await params;
 
     if (!userId) {
       return Response.json({ error: "User ID is required" }, { status: 400 });
@@ -81,10 +84,10 @@ export async function PUT(
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const userId = params?.id;
+    const { id: userId } = await params;
 
     if (!userId) {
       return Response.json({ error: "User ID is required" }, { status: 400 });

@@ -1,9 +1,31 @@
 import { db } from "@/db";
 import { users } from "@/db/schema";
+import { NextRequest } from "next/server";
+import { or, ilike, desc } from "drizzle-orm";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
-    const allUsers = await db.select().from(users);
+    const { searchParams } = new URL(req.url);
+    const query = searchParams.get("query");
+
+    let allUsers;
+
+    if (query) {
+      // Search ใน email และ username (case-insensitive)
+      allUsers = await db
+        .select()
+        .from(users)
+        .where(
+          or(
+            ilike(users.email, `%${query}%`),
+            ilike(users.username, `%${query}%`)
+          )
+        )
+        .orderBy(desc(users.updatedAt));
+    } else {
+      // ถ้าไม่มี query ให้ return ทุก user
+      allUsers = await db.select().from(users).orderBy(desc(users.updatedAt));
+    }
 
     return Response.json(allUsers);
   } catch (error) {

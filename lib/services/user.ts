@@ -1,6 +1,11 @@
-export async function getUsers() {
+export async function getUsers(query?: string) {
   try {
-    const res = await fetch("http://localhost:3000/api/users", {
+    const url = new URL("http://localhost:3000/api/users");
+    if (query) {
+      url.searchParams.set("query", query);
+    }
+
+    const res = await fetch(url.toString(), {
       cache: "no-store",
     });
 
