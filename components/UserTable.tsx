@@ -7,8 +7,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { getUsers } from "@/lib/services/user";
-import DeleteUserButton from "./DeleteUserButton";
-import UpdateUserButton from "./UpdateUserButton";
+import UserTableRow from "./UserTableRow";
 
 interface UserProps {
   id: string;
@@ -35,30 +34,9 @@ const UserTable = async ({ query }: { query: string }) => {
       </TableHeader>
       <TableBody>
         {users.length > 0 ? (
-          users.map(
-            ({ id, email, username, createdAt, updatedAt }: UserProps) => (
-              <TableRow key={id}>
-                <TableCell className="font-medium">{email}</TableCell>
-                <TableCell>{username}</TableCell>
-                <TableCell>
-                  {new Date(createdAt).toLocaleString("th-TH")}
-                </TableCell>
-                <TableCell>
-                  {new Date(updatedAt).toLocaleString("th-TH")}
-                </TableCell>
-                <TableCell className="flex justify-end">
-                  <div className="flex flex-row gap-4">
-                    <UpdateUserButton
-                      userId={id}
-                      email={email}
-                      username={username}
-                    />
-                    <DeleteUserButton userId={id} />
-                  </div>
-                </TableCell>
-              </TableRow>
-            )
-          )
+          users.map((user: UserProps) => (
+            <UserTableRow key={user.id} user={user} />
+          ))
         ) : (
           <TableRow>
             <TableCell colSpan={5} className="text-center p-4">
