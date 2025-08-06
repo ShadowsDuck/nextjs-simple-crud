@@ -5,3 +5,13 @@ declare interface UserProps {
   createdAt: Date;
   updatedAt: Date;
 }
+
+declare type Props = {
+  email: string;
+  username: string;
+};
+
+declare type Metadata = {
+  id: string;
+  password: string;
+};

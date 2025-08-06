@@ -21,7 +21,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 interface Props {
-  userId: string;
+  userId?: string;
   email?: string;
   username?: string;
   onClose: () => void;

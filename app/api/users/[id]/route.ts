@@ -2,6 +2,7 @@ import { db } from "@/db";
 import { users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { NextRequest } from "next/server";
+import { index } from "@/lib/search";
 
 export async function GET(
   req: NextRequest,
@@ -75,6 +76,20 @@ export async function PUT(
       return Response.json({ error: "User not found" }, { status: 404 });
     }
 
+    await index.upsert([
+      {
+        id: updatedUser.id,
+        content: {
+          email: updatedUser.email,
+          username: updatedUser.username,
+        },
+        metadata: {
+          id: updatedUser.id,
+          password: updatedUser.password,
+        },
+      },
+    ]);
+
     return Response.json(updatedUser);
   } catch (error) {
     console.error("PUT /api/users/[id] error:", error);
@@ -101,6 +116,8 @@ export async function DELETE(
     if (!deletedUser) {
       return Response.json({ error: "User not found" }, { status: 404 });
     }
+
+    await index.delete(userId);
 
     return Response.json({
       message: "User deleted successfully",

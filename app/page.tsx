@@ -1,5 +1,6 @@
 import AddUserButton from "@/components/AddUserButton";
 import Search from "@/components/Search";
+import SearchUi from "@/components/SearchUi";
 import UserTable from "@/components/UserTable";
 
 export default async function Home({
@@ -19,7 +20,8 @@ export default async function Home({
         <h1 className="text-4xl font-bold">Users</h1>
         <AddUserButton />
       </div>
-      <Search />
+      {/* <Search /> */}
+      <SearchUi />
       <UserTable query={query} />
     </div>
   );

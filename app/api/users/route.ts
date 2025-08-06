@@ -2,6 +2,7 @@ import { db } from "@/db";
 import { users } from "@/db/schema";
 import { NextRequest } from "next/server";
 import { or, ilike, desc } from "drizzle-orm";
+import { index } from "@/lib/search";
 
 export async function GET(req: NextRequest) {
   try {
@@ -55,6 +56,20 @@ export async function POST(req: Request) {
       .insert(users)
       .values({ email, username, password })
       .returning();
+
+    await index.upsert([
+      {
+        id: newUser.id,
+        content: {
+          email,
+          username,
+        },
+        metadata: {
+          id: newUser.id,
+          password: password,
+        },
+      },
+    ]);
 
     return Response.json(newUser);
   } catch (error) {
