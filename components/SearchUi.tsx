@@ -37,10 +37,27 @@ const SearchUi = () => {
     <div className="flex items-center">
       <div className="w-64">
         <SearchBar.Dialog open={open} onOpenChange={setOpen}>
-          <SearchBar.DialogTrigger placeholder="Search..." />
+          <div className="relative w-full">
+            <SearchBar.DialogTrigger
+              placeholder="Search..."
+              className="w-full pr-20"
+            />
 
-          <SearchBar.DialogContent>
-            <SearchBar.Input placeholder="Type to search..." />
+            <div className="absolute right-3 top-1/4 -translate-y-1/2 flex items-center space-x-1 text-xs text-muted-foreground pointer-events-none">
+              <kbd className="bg-muted border rounded px-1.5 py-0.5 text-[10px] font-bold">
+                Ctrl
+              </kbd>
+              <kbd className="bg-muted border rounded px-1.5 py-0.5 text-[10px] font-bold">
+                K
+              </kbd>
+            </div>
+          </div>
+
+          <SearchBar.DialogContent className="p-0!">
+            <SearchBar.Input
+              placeholder="Type to search..."
+              className="focus:outline-2 focus:outline-green-500 focus:ring-border"
+            />
             <SearchBar.Results
               searchFn={(query) => {
                 // 👇 100% type-safe: whatever you return here is
