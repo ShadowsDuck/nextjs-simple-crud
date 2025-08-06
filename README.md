@@ -9,6 +9,8 @@
 **[มาลอง Drizzle & Next.js 14 กัน](https://youtu.be/wLNLNqVHi-g?si=GXgUV1YCiw6b6_wL)**
 <br /><br />
 **[Simplest way to build CRUD App (Next.js 15, Shadcn, Drizzle, TypeScript)](https://youtu.be/sVy46ocQT-E?si=IH2_lIDcVMweWAiI)**
+<br /><br />
+**[Adding a Search Feature to a Server Component | Next.js App Router](https://www.youtube.com/watch?v=HQbaiDgH0EA)**
 
 *Next.js Tutorial*
 
