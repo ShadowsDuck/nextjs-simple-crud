@@ -35,7 +35,7 @@ const SearchUi = () => {
 
   return (
     <div className="flex items-center">
-      <div className="w-full">
+      <div className="w-64">
         <SearchBar.Dialog open={open} onOpenChange={setOpen}>
           <SearchBar.DialogTrigger placeholder="Search..." />
 
